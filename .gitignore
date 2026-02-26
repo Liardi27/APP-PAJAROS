@@ -1,15 +1,18 @@
+# mis archivos compilados y pesados
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+build/
+.gradle/
+
+# mi configuracion local del editor
+.idea/
+local.properties
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
 .DS_Store
-/build
-/captures
+captures/
 .externalNativeBuild
 .cxx
-local.properties

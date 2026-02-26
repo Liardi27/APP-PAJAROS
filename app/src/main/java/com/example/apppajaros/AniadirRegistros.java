@@ -1,133 +1,180 @@
 package com.example.apppajaros;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import org.osmdroid.config.Configuration;
-import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.MapEventsOverlay;
-import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.views.overlay.Marker;
-import java.util.HashMap;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.views.overlay.MapEventsOverlay;
+import android.preference.PreferenceManager;
+import android.view.MotionEvent;
 
 public class AniadirRegistros extends AppCompatActivity {
 
-    private MapView map;
-    private TextView btnAtras, btnGuardar;
-    private ImageButton btnSubirPortada;
+    private EditText etBuscarAPI, etNombre, etNombreCientifico, etDescCorta, etDescLarga, etEnvergadura, etColores, etAlimentacion, etEtiquetas;
     private SwitchCompat swDismorfia, swMigratorio;
     private LinearLayout llFotosDismorfia, llSeccionMigracion;
-    private HashMap<String, GeoPoint> rutaPuntos = new HashMap<>();
+    private ImageButton btnSubirPortada;
+    private Button btnFotoMacho, btnFotoHembra, btnFotoGeneral;
+    private TextView btnAtras, btnGuardar;
+    private MapView mapViewMigracion;
+    private Marker mapMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
+        Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         setContentView(R.layout.aniadir_registro);
 
         vincularComponentes();
 
-        // Boton atras inteligente
-        btnAtras.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+        // ARREGLO: Boton atras ya funciona cerrando la actividad
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-        // Lógica de fotos y visibilidad cruzada
-        configurarFotosYVisibilidad();
-
-        // Configuracion del mapa
+        configurarInterruptores();
+        configurarBotonesImagenes();
         configurarMapa();
     }
 
-    private void vincularComponentes() {
-        map = findViewById(R.id.mapaLibre);
-        btnAtras = findViewById(R.id.btnAtras);
-        btnGuardar = findViewById(R.id.btnGuardar);
-        btnSubirPortada = findViewById(R.id.btnSubirPortada);
-        swDismorfia = findViewById(R.id.swDismorfia);
-        swMigratorio = findViewById(R.id.swMigratorio);
-        llFotosDismorfia = findViewById(R.id.llFotosDismorfia);
-        llSeccionMigracion = findViewById(R.id.llSeccionMigracion);
+    private void configurarBotonesImagenes() {
+        View.OnClickListener abrirGaleriaListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirGaleria();
+            }
+        };
+
+        if(btnSubirPortada != null) btnSubirPortada.setOnClickListener(abrirGaleriaListener);
+        if(btnFotoMacho != null) btnFotoMacho.setOnClickListener(abrirGaleriaListener);
+        if(btnFotoHembra != null) btnFotoHembra.setOnClickListener(abrirGaleriaListener);
+        if(btnFotoGeneral != null) btnFotoGeneral.setOnClickListener(abrirGaleriaListener);
     }
 
-    private void configurarFotosYVisibilidad() {
-        // Al empezar, dismorfia es NO
+    private void abrirGaleria() {
+        android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, 100);
+    }
+
+    private void vincularComponentes() {
+        etBuscarAPI = findViewById(R.id.etBuscarAPI);
+        etNombre = findViewById(R.id.etNombre);
+        etNombreCientifico = findViewById(R.id.etNombreCientifico);
+        etDescCorta = findViewById(R.id.etDescCorta);
+        etDescLarga = findViewById(R.id.etDescLarga);
+        etEnvergadura = findViewById(R.id.etEnvergadura);
+        etColores = findViewById(R.id.etColores);
+        etAlimentacion = findViewById(R.id.etAlimentacion);
+
+        swDismorfia = findViewById(R.id.swDismorfia);
+        swMigratorio = findViewById(R.id.swMigratorio);
+
+        llFotosDismorfia = findViewById(R.id.llFotosDismorfia);
+        llSeccionMigracion = findViewById(R.id.llSeccionMigracion);
+
+        btnSubirPortada = findViewById(R.id.btnSubirPortada);
+        btnAtras = findViewById(R.id.btnAtras);
+        btnGuardar = findViewById(R.id.btnGuardar);
+
+        btnFotoMacho = findViewById(R.id.btnFotoMacho);
+        btnFotoHembra = findViewById(R.id.btnFotoHembra);
+        btnFotoGeneral = findViewById(R.id.btnFotoGeneral);
+
+        mapViewMigracion = findViewById(R.id.mapViewMigracion);
+    }
+
+    private void configurarInterruptores() {
+        // Empiezan desactivados y con texto NO
         swDismorfia.setChecked(false);
         swDismorfia.setText("NO");
-
-        swDismorfia.setOnCheckedChangeListener((cb, isChecked) -> {
-            if (isChecked) {
-                swDismorfia.setText("SI");
-                // OCULTA la foto comun arriba
-                btnSubirPortada.setVisibility(View.GONE);
-                // MUESTRA los botones macho/hembra abajo
-                llFotosDismorfia.setVisibility(View.VISIBLE);
-            } else {
-                swDismorfia.setText("NO");
-                // MUESTRA la foto comun arriba
-                btnSubirPortada.setVisibility(View.VISIBLE);
-                // OCULTA los botones macho/hembra abajo
-                llFotosDismorfia.setVisibility(View.GONE);
+        swDismorfia.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    swDismorfia.setText("SI");
+                    llFotosDismorfia.setVisibility(View.VISIBLE);
+                    if(btnFotoGeneral != null) btnFotoGeneral.setVisibility(View.GONE);
+                } else {
+                    swDismorfia.setText("NO");
+                    llFotosDismorfia.setVisibility(View.GONE);
+                    if(btnFotoGeneral != null) btnFotoGeneral.setVisibility(View.VISIBLE);
+                }
             }
         });
 
         swMigratorio.setChecked(false);
         swMigratorio.setText("NO");
-        swMigratorio.setOnCheckedChangeListener((cb, isChecked) -> {
-            if (isChecked) {
-                swMigratorio.setText("SI");
-                llSeccionMigracion.setVisibility(View.VISIBLE);
-            } else {
-                swMigratorio.setText("NO");
-                llSeccionMigracion.setVisibility(View.GONE);
+        swMigratorio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    swMigratorio.setText("SI");
+                    llSeccionMigracion.setVisibility(View.VISIBLE);
+                }
+                if (!isChecked) {
+                    swMigratorio.setText("NO");
+                    llSeccionMigracion.setVisibility(View.GONE);
+                }
             }
         });
-
-        // Click en la foto comun
-        btnSubirPortada.setOnClickListener(v -> abrirGaleria(1));
     }
 
     private void configurarMapa() {
-        map.setMultiTouchControls(true);
-        map.getController().setZoom(5.0);
-        map.getController().setCenter(new GeoPoint(40.41, -3.70));
+        if (mapViewMigracion == null) return;
+        mapViewMigracion.setMultiTouchControls(true);
+        mapViewMigracion.getController().setZoom(5.0);
+        mapViewMigracion.getController().setCenter(new GeoPoint(40.4168, -3.7038)); // EspaÃ±a
+
+        mapViewMigracion.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_MOVE:
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+                return false;
+            }
+        });
 
         MapEventsReceiver mReceive = new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
-                // Aqui ya no peta porque no dependemos de un RadioGroup
-                Marker m = new Marker(map);
-                m.setPosition(p);
-                map.getOverlays().add(m);
-                map.invalidate();
+                if (mapMarker != null) {
+                    mapViewMigracion.getOverlays().remove(mapMarker);
+                }
+                mapMarker = new Marker(mapViewMigracion);
+                mapMarker.setPosition(p);
+                mapMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                mapViewMigracion.getOverlays().add(mapMarker);
+                mapViewMigracion.invalidate();
                 return true;
             }
+
             @Override
-            public boolean longPressHelper(GeoPoint p) { return false; }
+            public boolean longPressHelper(GeoPoint p) {
+                return false;
+            }
         };
-        map.getOverlays().add(new MapEventsOverlay(mReceive));
-    }
-
-    private void abrirGaleria(int codigo) {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, codigo);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null) {
-            if (requestCode == 1) btnSubirPortada.setImageURI(data.getData());
-        }
+        mapViewMigracion.getOverlays().add(new MapEventsOverlay(mReceive));
     }
 }
