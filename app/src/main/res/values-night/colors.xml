@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- COLORES BÁSICOS -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- PALETA DE NOCHE BASADA EN NATURALEZA -->
+    <!-- Fondo: Verde pino muy oscuro (casi negro), adiós a la capa blanca -->
+    <color name="fondo_naturaleza">#141C16</color> 
+    <color name="verde_musgo">#B5C29E</color>
+    <color name="marron_tierra">#D4A373</color>
+    
+    <!-- Verde oscuro: Cabeceras y elementos sólidos, más sombrío -->
+    <color name="verde_oscuro">#1A2B22</color>
+    <!-- Texto secundario: Verde grisáceo más claro para contraste -->
+    <color name="texto_secundario">#A9B49C</color>
+    <color name="corteza_abeto">#5C4033</color>
+
+    <!-- ZONA CRÍTICA NOCHE: Tono baya venenosa/coral suave (se lee bien en negro) -->
+    <color name="alerta_bosque">#CC6655</color>
+</resources>
