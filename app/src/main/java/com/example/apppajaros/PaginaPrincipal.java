@@ -96,10 +96,10 @@ public class PaginaPrincipal extends AppCompatActivity {
 //                finish();
                 return true;}
             if (id == R.id.nav_ajustes){
-                Intent intentAjuste = new Intent(PaginaPrincipal.this, ConfiguracionActivity.class);
-                startActivity(intentAjuste);
-                // cierro esta para no llenar la ram
-                finish();
+//                Intent intentAjuste = new Intent(PaginaPrincipal.this, Ajustes.class);
+//                startActivity(intentAjuste);
+//                // cierro esta para no llenar la ram
+//                finish();
                 return true;
             }
             return false;

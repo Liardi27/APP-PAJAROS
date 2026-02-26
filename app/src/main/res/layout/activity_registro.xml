@@ -3,20 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondo_naturaleza"
+    android:background="@drawable/fondo_reg_ini"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/pantalla_registro_raiz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="32dp">
+        android:layout_margin="24dp"
+        android:padding="24dp"
+        android:background="@drawable/fondo_contenedor_traslucido">
 
         <TextView
             android:id="@+id/txvw_TituloRegistro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-light"
             android:text="Crear cuenta"
             android:textColor="@color/verde_oscuro"
@@ -185,7 +187,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="sans-serif-medium"
             android:text="¿Ya tienes cuenta? Inicia sesion"
             android:textColor="@color/marron_tierra"

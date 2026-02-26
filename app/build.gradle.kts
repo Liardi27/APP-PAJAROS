@@ -67,4 +67,5 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.activity:activity:1.8.0")
     implementation("androidx.fragment:fragment:1.6.2")
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
 }

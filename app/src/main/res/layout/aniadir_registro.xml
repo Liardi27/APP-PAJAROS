@@ -5,342 +5,238 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo_anadir_articulo"
     android:fillViewport="true"
-    android:fitsSystemWindows="true"> <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="32dp">
+    android:fitsSystemWindows="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clCabecera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#E62E4F32"
-        android:paddingVertical="16dp"
-        android:paddingHorizontal="16dp"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/btnAtras"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt; Atrás"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Nueva Ave"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/btnGuardar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Guardar"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:id="@+id/llBuscador"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/clCabecera">
-
-        <EditText
-            android:id="@+id/etBuscarAPI"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_edittext_bosque"
-            android:hint="Buscar especie..."
-            android:textColorHint="#757575"
-            android:textColor="#2E4F32"
-            android:paddingHorizontal="16dp" />
-
-        <Button
-            android:id="@+id/btnAutocompletar"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:backgroundTint="#658B54"
-            android:text="AUTOCOMPLETAR"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardObligatorio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="#F2F4F1E1"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
-        app:strokeColor="#658B54"
-        app:strokeWidth="1dp"
-        app:layout_constraintTop_toBottomOf="@id/llBuscador">
+        android:paddingBottom="32dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCabecera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:background="#E62E4F32"
+            android:paddingTop="48dp"
+            android:paddingBottom="16dp"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvTituloObligatorio"
+                android:id="@+id/btnAtras"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SECCION OBLIGATORIA"
+                android:text="&lt; Atrás"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:textColor="#2E4F32"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <ImageButton
-                android:id="@+id/btnSubirPortada"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="12dp"
-                android:background="#DCD8C5"
-                android:scaleType="centerInside"
-                android:padding="20dp"
-                android:src="@android:drawable/ic_menu_camera"
-                app:layout_constraintDimensionRatio="3:4"
-                app:layout_constraintWidth_percent="0.35"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTituloObligatorio" />
-
-            <EditText
-                android:id="@+id/etNombre"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:hint="Nombre Comun *"
-                android:textColorHint="#8D8D8D"
-                android:background="#FFFFFF"
-                android:padding="12dp"
+                android:text="Nueva Ave"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btnSubirPortada"
-                app:layout_constraintTop_toTopOf="@id/btnSubirPortada" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/etNombreCientifico"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/btnGuardar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:hint="Nombre Cientifico *"
-                android:textColorHint="#8D8D8D"
-                android:background="#FFFFFF"
-                android:padding="12dp"
+                android:text="Guardar"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btnSubirPortada"
-                app:layout_constraintTop_toBottomOf="@id/etNombre" />
-
-            <EditText
-                android:id="@+id/etDescCorta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="Descripcion Corta *"
-                android:textColorHint="#8D8D8D"
-                android:background="#FFFFFF"
-                android:padding="12dp"
-                app:layout_constraintTop_toBottomOf="@id/btnSubirPortada" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardFisico"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        app:cardBackgroundColor="#F2F4F1E1"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
-        app:strokeColor="#658B54"
-        app:strokeWidth="1dp"
-        app:layout_constraintTop_toBottomOf="@id/cardObligatorio">
-
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardObligatorio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="#F2F4F1E1"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintTop_toBottomOf="@id/clCabecera">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DETALLES FISICOS"
-                android:fontFamily="sans-serif-black"
-                android:textColor="#2E4F32"
-                android:layout_marginBottom="12dp"/>
-
-            <EditText
-                android:id="@+id/etDescLarga"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:padding="12dp"
-                android:hint="Descripcion completa..."
-                android:textColorHint="#8D8D8D"
-                android:gravity="top"
-                android:lines="3"
-                android:layout_marginBottom="12dp"/>
+                android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
+                <ImageButton
+                    android:id="@+id/btnSubirPortada"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="#DCD8C5"
+                    android:scaleType="centerInside"
+                    android:src="@android:drawable/ic_menu_camera"
+                    app:layout_constraintDimensionRatio="3:4"
+                    app:layout_constraintWidth_percent="0.35"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <EditText
-                    android:id="@+id/etEnvergadura"
+                    android:id="@+id/etNombre"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:hint="Nombre Comun *"
                     android:background="#FFFFFF"
                     android:padding="12dp"
-                    android:hint="Envergadura (cm)"
-                    android:textColorHint="#8D8D8D"
-                    android:inputType="numberDecimal"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnSubirPortada"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <EditText
-                    android:id="@+id/etColores"
+                    android:id="@+id/etNombreCientifico"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:hint="Nombre Cientifico *"
                     android:background="#FFFFFF"
                     android:padding="12dp"
-                    android:hint="Colores"
-                    android:textColorHint="#8D8D8D"/>
-            </LinearLayout>
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnSubirPortada"
+                    app:layout_constraintTop_toBottomOf="@id/etNombre" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardFisico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="#F2F4F1E1"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintTop_toBottomOf="@id/cardObligatorio">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="¿Dismorfia Sexual?"
-                    android:textStyle="bold"
-                    android:textColor="#2E4F32"/>
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/swDismorfia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:switchPadding="8dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llFotosDismorfia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginTop="12dp">
-                <Button android:id="@+id/btnFotoMacho" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Subir Imágenes MACHO" android:backgroundTint="#DCD8C5" android:textColor="#333333"/>
-                <Button android:id="@+id/btnFotoHembra" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Subir Imágenes HEMBRA" android:backgroundTint="#DCD8C5" android:textColor="#333333"/>
-            </LinearLayout>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                android:padding="16dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardComportamiento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        app:cardBackgroundColor="#F2F4F1E1"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
-        app:strokeColor="#658B54"
-        app:strokeWidth="1dp"
-        app:layout_constraintTop_toBottomOf="@id/cardFisico">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="COMPORTAMIENTO"
-                android:fontFamily="sans-serif-black"
-                android:textColor="#2E4F32"
-                android:layout_marginBottom="12dp"/>
-
-            <EditText
-                android:id="@+id/etAlimentacion"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="#FFFFFF"
-                android:padding="12dp"
-                android:gravity="top"
-                android:hint="¿Cómo se alimentan?"
-                android:textColorHint="#8D8D8D"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="16dp">
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="¿Migratorio?"
-                    android:textStyle="bold"
-                    android:textColor="#2E4F32"/>
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/swMigratorio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:switchPadding="8dp" />
+                    android:text="DETALLES FISICOS"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="#2E4F32"
+                    android:layout_marginBottom="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="¿Dismorfia Sexual?"
+                        android:textStyle="bold"/>
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swDismorfia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llFotosDismorfia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="12dp">
+                    <Button android:id="@+id/btnFotoMacho" android:layout_width="match_parent" android:layout_height="60dp" android:text="Subir Imágenes MACHO" android:backgroundTint="#DCD8C5" android:textColor="#333333"/>
+                    <Button android:id="@+id/btnFotoHembra" android:layout_width="match_parent" android:layout_height="60dp" android:layout_marginTop="8dp" android:text="Subir Imágenes HEMBRA" android:backgroundTint="#DCD8C5" android:textColor="#333333"/>
+                </LinearLayout>
             </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardComportamiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="#F2F4F1E1"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintTop_toBottomOf="@id/cardFisico">
 
             <LinearLayout
-                android:id="@+id/llSeccionMigracion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginTop="12dp">
-                <GridLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:columnCount="4">
-                    <CheckBox android:text="Ene"/><CheckBox android:text="Feb"/><CheckBox android:text="Mar"/><CheckBox android:text="Abr"/>
-                    <CheckBox android:text="May"/><CheckBox android:text="Jun"/><CheckBox android:text="Jul"/><CheckBox android:text="Ago"/>
-                    <CheckBox android:text="Sep"/><CheckBox android:text="Oct"/><CheckBox android:text="Nov"/><CheckBox android:text="Dic"/>
-                </GridLayout>
-                <ImageView android:id="@+id/ivMapaPlaceholder" android:layout_width="match_parent" android:layout_height="150dp" android:layout_marginTop="12dp" android:background="#CCDCD8C5" android:scaleType="center" android:src="@android:drawable/ic_dialog_map" />
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="COMPORTAMIENTO"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="#2E4F32"
+                    android:layout_marginBottom="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="¿Migratorio?"
+                        android:textStyle="bold"/>
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swMigratorio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSeccionMigracion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="12dp">
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="4"
+                        android:alignmentMode="alignMargins">
+                        <CheckBox android:id="@+id/cbEne" android:text="Ene"/><CheckBox android:id="@+id/cbFeb" android:text="Feb"/>
+                        <CheckBox android:id="@+id/cbMar" android:text="Mar"/><CheckBox android:id="@+id/cbAbr" android:text="Abr"/>
+                        <CheckBox android:id="@+id/cbMay" android:text="May"/><CheckBox android:id="@+id/cbJun" android:text="Jun"/>
+                        <CheckBox android:id="@+id/cbJul" android:text="Jul"/><CheckBox android:id="@+id/cbAgo" android:text="Ago"/>
+                        <CheckBox android:id="@+id/cbSep" android:text="Sep"/><CheckBox android:id="@+id/cbOct" android:text="Oct"/>
+                        <CheckBox android:id="@+id/cbNov" android:text="Nov"/><CheckBox android:id="@+id/cbDic" android:text="Dic"/>
+                    </GridLayout>
+
+                    <org.osmdroid.views.MapView
+                        android:id="@+id/mapaLibre"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginTop="12dp" />
+                </LinearLayout>
             </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <Button android:id="@+id/btnSubirAudio" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="SUBIR AUDIO" android:backgroundTint="#B09F84" android:textColor="#333333" app:icon="@android:drawable/ic_btn_speak_now" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

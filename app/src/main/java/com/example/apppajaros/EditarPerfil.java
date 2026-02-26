@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -34,18 +35,18 @@ import java.util.Map;
 
 public class EditarPerfil extends AppCompatActivity {
 
-    // declaro todas las piezas de mi motor
+    // preparo todas mis herramientas de trabajo
     private ImageView btnVolverAtrasEditar, imgEditarFotoPerfil;
     private EditText etEditarNombre, etEditarApellidos, etEditarUsername;
     private MaterialButton btnGuardarEditar, btnExportarDatos, btnImportarDatos;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private FirebaseStorage storage; // añado el cajon de las fotos en la nube
+    private FirebaseStorage storage;
+    private Sqlite dbLocal;
     private String userId;
 
     private ActivityResultLauncher<Intent> lanzadorGaleria;
-    // aqui me guardo la uri de la foto que elija para subirla luego
     private Uri uriFotoPillada;
 
     @Override
@@ -53,12 +54,13 @@ public class EditarPerfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
 
-        // arranco los motores de firebase
+        // arranco los motores de la app
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance(); // inicializo storage
+        storage = FirebaseStorage.getInstance();
+        dbLocal = new Sqlite(this);
 
-        // enlazo la vista con mis variables
+        // enlazo cada cosa con su id del xml
         btnVolverAtrasEditar = findViewById(R.id.btnVolverAtrasEditar);
         imgEditarFotoPerfil = findViewById(R.id.imgEditarFotoPerfil);
         etEditarNombre = findViewById(R.id.etEditarNombre);
@@ -68,7 +70,7 @@ public class EditarPerfil extends AppCompatActivity {
         btnExportarDatos = findViewById(R.id.btnExportarDatos);
         btnImportarDatos = findViewById(R.id.btnImportarDatos);
 
-        // preparo el invento para abrir la galeria
+        // configuro el lanzador de la galeria para atrapar la foto
         lanzadorGaleria = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -86,18 +88,20 @@ public class EditarPerfil extends AppCompatActivity {
                 }
         );
 
+        // verifico quien soy para cargar mis cosas
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             userId = currentUser.getUid();
             cargarDatosActuales();
-            configurarBotones();
+            configurarClicks();
         } else {
-            Toast.makeText(this, "Nido vacio, logueate primero", Toast.LENGTH_SHORT).show();
+            // si no hay usuario cierro la pantalla por seguridad
             finish();
         }
     }
 
-    private void configurarBotones() {
+    private void configurarClicks() {
+        // flecha para volver al nido
         if (btnVolverAtrasEditar != null) {
             btnVolverAtrasEditar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,31 +111,33 @@ public class EditarPerfil extends AppCompatActivity {
             });
         }
 
+        // tocar la foto para ir a la galeria
         if (imgEditarFotoPerfil != null) {
             imgEditarFotoPerfil.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intencionGaleria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    lanzadorGaleria.launch(intencionGaleria);
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    lanzadorGaleria.launch(intent);
                 }
             });
         }
 
+        // el boton principal para guardar todos los cambios
         if (btnGuardarEditar != null) {
             btnGuardarEditar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    guardarNuevosDatos();
+                    guardarCambios();
                 }
             });
         }
 
-        // dejo los botones listos para cuando les metamos mano
+        // botones de gestion de datos
         if (btnExportarDatos != null) {
             btnExportarDatos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(EditarPerfil.this, "Exportar datos en construccion", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditarPerfil.this, "Preparando exportacion...", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -140,125 +146,111 @@ public class EditarPerfil extends AppCompatActivity {
             btnImportarDatos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(EditarPerfil.this, "Importar datos en construccion", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditarPerfil.this, "Buscando archivo para importar...", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
     private void cargarDatosActuales() {
-        DocumentReference docRef = db.collection("Usuarios").document(userId);
+        // primero busco en mi base de datos sqlite local
+        Usuario userLocal = dbLocal.obtenerUsuarioLocal(userId);
+        if (userLocal != null) {
+            etEditarNombre.setText(userLocal.getNombre());
+            etEditarApellidos.setText(userLocal.getApellidos());
+            etEditarUsername.setText(userLocal.getNombreDeUsuario());
+        }
 
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        // luego busco en firestore para estar seguro de tener lo ultimo
+        db.collection("Usuarios").document(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    String nombre = documentSnapshot.getString("nombre");
-                    String apellidos = documentSnapshot.getString("apellidos");
-                    String username = documentSnapshot.getString("username");
-
-                    if (nombre != null) {
-                        etEditarNombre.setText(nombre);
-                    }
-                    if (apellidos != null) {
-                        etEditarApellidos.setText(apellidos);
-                    }
-                    if (username != null) {
-                        etEditarUsername.setText(username);
-                    }
-
-                    // cargo la foto local si la tengo guardada de antes
-                    SharedPreferences prefs = getSharedPreferences("AjustesPajaros", MODE_PRIVATE);
-                    String fotoLocalStr = prefs.getString("ruta_foto_perfil", "");
-                    if (!fotoLocalStr.isEmpty()) {
-                        Uri fotoLocalUri = Uri.parse(fotoLocalStr);
-                        if (imgEditarFotoPerfil != null) {
-                            imgEditarFotoPerfil.setImageURI(fotoLocalUri);
-                        }
-                    }
+                    String n = documentSnapshot.getString("nombre");
+                    String a = documentSnapshot.getString("apellidos");
+                    String u = documentSnapshot.getString("nombreDeUsuario");
+                    if (n != null) etEditarNombre.setText(n);
+                    if (a != null) etEditarApellidos.setText(a);
+                    if (u != null) etEditarUsername.setText(u);
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditarPerfil.this, "Fallo al cargar tus datos", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void guardarNuevosDatos() {
-        String nuevoNombre = etEditarNombre.getText().toString().trim();
-        String nuevosApellidos = etEditarApellidos.getText().toString().trim();
-        String nuevoUsername = etEditarUsername.getText().toString().trim();
+    private void guardarCambios() {
+        String nombreVal = etEditarNombre.getText().toString().trim();
+        String apellidoVal = etEditarApellidos.getText().toString().trim();
+        String userVal = etEditarUsername.getText().toString().trim();
 
-        // valido con if que los datos clave esten rellenos
-        if (!nuevoNombre.isEmpty() && !nuevoUsername.isEmpty()) {
+        // valido con un if que no me dejen campos vacios
+        if (!nombreVal.isEmpty() && !userVal.isEmpty()) {
 
-            // compruebo si el usuario ha tocado la foto y tenemos una uri nueva
+            // si el usuario ha elegido una foto nueva la subo primero
             if (uriFotoPillada != null) {
-                // preparo la ruta en la nube dentro de la carpeta fotos_perfil
-                StorageReference fotoRef = storage.getReference().child("fotos_perfil").child(userId + ".jpg");
-
-                // subo la foto a firebase
-                fotoRef.putFile(uriFotoPillada).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                StorageReference ref = storage.getReference().child("fotos_perfil/" + userId + ".jpg");
+                ref.putFile(uriFotoPillada).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        // si se sube bien saco la url de descarga
-                        fotoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
-                            public void onSuccess(Uri uriDescarga) {
-
-                                // guardo la ruta en local con sharedpreferences
-                                SharedPreferences prefs = getSharedPreferences("AjustesPajaros", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = prefs.edit();
-                                editor.putString("ruta_foto_perfil", uriFotoPillada.toString());
-                                editor.apply();
-
-                                // llamo al metodo para guardar los textos y la url de la nube
-                                actualizarFirestore(nuevoNombre, nuevosApellidos, nuevoUsername, uriDescarga.toString());
+                            public void onSuccess(Uri uri) {
+                                // ya tengo la url de la foto asi que sincronizo todo
+                                sincronizarTodo(nombreVal, apellidoVal, userVal, uri.toString());
                             }
                         });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EditarPerfil.this, "Error subiendo la foto a la nube", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditarPerfil.this, "Fallo al subir la imagen", Toast.LENGTH_SHORT).show();
                     }
                 });
             } else {
-                // si no ha cambiado la foto actualizo solo los textos
-                actualizarFirestore(nuevoNombre, nuevosApellidos, nuevoUsername, null);
+                // si no hay foto nueva solo sincronizo los textos
+                sincronizarTodo(nombreVal, apellidoVal, userVal, null);
             }
 
         } else {
-            Toast.makeText(this, "El nombre y el usuario son obligatorios", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nombre y Usuario son obligatorios", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // este metodo centraliza la subida a firestore para no repetir codigo
-    private void actualizarFirestore(String nombre, String apellidos, String username, String urlFotoNube) {
-        Map<String, Object> actualizaciones = new HashMap<>();
-        actualizaciones.put("nombre", nombre);
-        actualizaciones.put("apellidos", apellidos);
-        actualizaciones.put("username", username);
-
-        // solo actualizo la foto si me llega una url nueva
-        if (urlFotoNube != null) {
-            actualizaciones.put("fotoPerfilUrl", urlFotoNube);
+    private void sincronizarTodo(String n, String a, String u, String urlFoto) {
+        // 1. PREPARO EL PAQUETE PARA FIREBASE (usando set con merge para evitar errores)
+        Map<String, Object> map = new HashMap<>();
+        map.put("nombre", n);
+        map.put("apellidos", a);
+        map.put("nombreDeUsuario", u);
+        if (urlFoto != null) {
+            map.put("fotoPerfilUrl", urlFoto);
         }
 
-        DocumentReference docRef = db.collection("Usuarios").document(userId);
-        docRef.update(actualizaciones).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("Usuarios").document(userId).set(map, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(EditarPerfil.this, "Perfil actualizado como un campeon", Toast.LENGTH_SHORT).show();
+
+                // 2. ACTUALIZO MI SQLITE LOCAL
+                Usuario user = new Usuario();
+                user.setId(userId);
+                user.setNombre(n);
+                user.setApellidos(a);
+                user.setNombreDeUsuario(u);
+                dbLocal.guardarOActualizarUsuario(user);
+
+                // 3. GUARDO LA RUTA LOCAL DE LA FOTO PARA CARGA INSTANTANEA
+                if (uriFotoPillada != null) {
+                    SharedPreferences.Editor editor = getSharedPreferences("AjustesPajaros", MODE_PRIVATE).edit();
+                    editor.putString("ruta_foto_perfil", uriFotoPillada.toString());
+                    editor.apply();
+                }
+
+                Toast.makeText(EditarPerfil.this, "Cambios guardados con exito", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditarPerfil.this, "Error al guardar los cambios en la base de datos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditarPerfil.this, "Error al conectar con el nido", Toast.LENGTH_SHORT).show();
             }
         });
     }
