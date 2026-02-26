@@ -1,12 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- COLORES BÁSICOS -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- TU PALETA DE DÍA -->
     <color name="fondo_naturaleza">#F2EFE9</color>
     <color name="verde_musgo">#A3B18A</color>
     <color name="marron_tierra">#582F0E</color>
     <color name="verde_oscuro">#344E41</color>
     <color name="texto_secundario">#6D7563</color>
-
     <color name="corteza_abeto">#3E2723</color>
+
+    <!-- NUEVO COLOR ZONA CRÍTICA: Tonos otoño/teja -->
+    <color name="alerta_bosque">#8B3A2B</color>
 </resources>

@@ -1,221 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/fondo_naturaleza"
-            android:fillViewport="true">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_naturaleza"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="32dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="32dp">
 
         <View
-                android:id="@+id/vw_CabeceraAjustes"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/verde_oscuro"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/vw_CabeceraAjustes"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/verde_oscuro"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Imagen de fondo que me pediste, con opacidad 0.2 -->
         <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:alpha="0.2"
-                android:scaleType="centerCrop"
-                android:src="@drawable/fondo_anadir_articulo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vw_CabeceraAjustes" />
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:alpha="0.2"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fondo_anadir_articulo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vw_CabeceraAjustes" />
 
         <!-- Flecha para volver hacia atrás (enlazada a volverAlInicio) -->
         <ImageView
-                android:id="@+id/btnVolverAtrasAjustes"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:padding="12dp"
-                android:src="@android:drawable/ic_menu_revert"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
+            android:id="@+id/btnVolverAtrasAjustes"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            android:src="@android:drawable/ic_menu_revert"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-black"
-                android:text="Ajustes del Sistema"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@id/btnVolverAtrasAjustes"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btnVolverAtrasAjustes" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Ajustes del Sistema"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/btnVolverAtrasAjustes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnVolverAtrasAjustes" />
 
         <androidx.cardview.widget.CardView
-                android:id="@+id/cvPreferencias"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="24dp"
-                app:cardBackgroundColor="?attr/colorSurface"
-                app:cardElevation="4dp"
-                app:cardCornerRadius="20dp"
-                app:layout_constraintTop_toBottomOf="@id/vw_CabeceraAjustes">
+            android:id="@+id/cvPreferencias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="?attr/colorSurface"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintTop_toBottomOf="@id/vw_CabeceraAjustes">
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Preferencias de visualizacion"
-                        android:textStyle="bold"
-                        android:textColor="@color/marron_tierra" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Preferencias de visualizacion"
+                    android:textStyle="bold"
+                    android:textColor="@color/marron_tierra" />
 
                 <Switch
-                        android:id="@+id/swModoOscuro"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Modo Oscuro"
-                        android:textColor="?attr/colorOnSurface"
-                        android:thumbTint="@color/verde_oscuro" />
+                    android:id="@+id/swModoOscuro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Modo Oscuro"
+                    android:textColor="?attr/colorOnSurface"
+                    android:thumbTint="@color/verde_oscuro" />
 
                 <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
                     <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="?attr/colorOnSurface"
-                            android:text="Idioma de la app" />
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="?attr/colorOnSurface"
+                        android:text="Idioma de la app" />
 
                     <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnIdiomaES"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:text="ES"
-                            android:textColor="@color/verde_oscuro"
-                            app:strokeColor="@color/verde_oscuro" />
+                        android:id="@+id/btnIdiomaES"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="ES"
+                        android:textColor="@color/verde_oscuro"
+                        app:strokeColor="@color/verde_oscuro" />
 
                     <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnIdiomaEN"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="EN"
-                            android:textColor="@color/verde_oscuro"
-                            app:strokeColor="@color/verde_oscuro" />
+                        android:id="@+id/btnIdiomaEN"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="EN"
+                        android:textColor="@color/verde_oscuro"
+                        app:strokeColor="@color/verde_oscuro" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-                android:id="@+id/cvDatos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="?attr/colorSurface"
-                app:cardElevation="4dp"
-                app:cardCornerRadius="20dp"
-                app:layout_constraintTop_toBottomOf="@id/cvPreferencias">
+            android:id="@+id/cvDatos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="?attr/colorSurface"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintTop_toBottomOf="@id/cvPreferencias">
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Seguridad de tus datos"
-                        android:textStyle="bold"
-                        android:textColor="@color/marron_tierra" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Seguridad de tus datos"
+                    android:textStyle="bold"
+                    android:textColor="@color/marron_tierra" />
 
                 <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnExportarAjustes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="EXPORTAR COPIA JSON"
-                        app:backgroundTint="@color/corteza_abeto" />
+                    android:id="@+id/btnExportarAjustes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="EXPORTAR COPIA JSON"
+                    app:backgroundTint="@color/corteza_abeto" />
 
                 <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnImportarAjustes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="IMPORTAR COPIA JSON"
-                        app:backgroundTint="@color/corteza_abeto" />
+                    android:id="@+id/btnImportarAjustes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="IMPORTAR COPIA JSON"
+                    app:backgroundTint="@color/corteza_abeto" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="?attr/colorSurface"
-                app:cardElevation="4dp"
-                app:cardCornerRadius="20dp"
-                app:layout_constraintTop_toBottomOf="@id/cvDatos">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="?attr/colorSurface"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintTop_toBottomOf="@id/cvDatos">
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- AQUÍ ES DONDE ESTÁ EL CAMBIO DE COLOR (alerta_bosque) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Zona Crítica"
+                    android:textStyle="bold"
+                    android:textColor="@color/alerta_bosque" />
+
+                <TextView
+                    android:id="@+id/btnCerrarSesionAjustes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:layout_marginTop="16dp"
+                    android:paddingVertical="12dp"
+                    android:text="Cerrar sesión del nido"
+                    android:textColor="@color/marron_tierra"
+                    android:textStyle="bold" />
 
+                <!-- AQUÍ ES DONDE ESTÁ EL CAMBIO DE COLOR (alerta_bosque) -->
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Zona Crítica"
-                        android:textStyle="bold"
-                        android:textColor="#B71C1C" />
+                    android:id="@+id/btnBorrarDatos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:text="Limpiar datos locales (SQLite)"
+                    android:textColor="@color/alerta_bosque" />
 
-                <!-- Solo borra la sesión de la app activa temporalmente -->
-                <TextView
-                        android:id="@+id/btnCerrarSesionAjustes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:paddingVertical="12dp"
-                        android:text="Cerrar sesión del nido"
-                        android:textColor="@color/marron_tierra"
-                        android:textStyle="bold" />
-
-                <!-- Solo borra tu SQLite y tus preferencias del móvil, pero el usuario en Firebase sobrevive -->
-                <TextView
-                        android:id="@+id/btnBorrarDatos"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="12dp"
-                        android:text="Limpiar datos locales (SQLite)"
-                        android:textColor="#B71C1C" />
-
-                <!-- ELIMINA el usuario de la nube Firebase Y a la vez desencadena el borrado local de datos -->
                 <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnBorrarCuenta"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="12dp"
-                        android:text="BORRAR MI CUENTA PARA SIEMPRE"
-                        android:textColor="@color/white"
-                        app:backgroundTint="@color/corteza_abeto"
-                        app:cornerRadius="12dp" />
+                    android:id="@+id/btnBorrarCuenta"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="12dp"
+                    android:text="BORRAR MI CUENTA PARA SIEMPRE"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/corteza_abeto"
+                    app:cornerRadius="12dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
