@@ -18,6 +18,7 @@
         <activity android:name=".ConfiguracionActivity" />
         <activity android:name=".AjustesActivity" />
         <activity android:name=".PaginaPrincipal" />
+        <activity android:name=".AniadirRegistros" />
 
         <activity
             android:name=".IniciarSesion"

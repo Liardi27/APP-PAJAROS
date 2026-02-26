@@ -1,117 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondo_naturaleza"
-    android:padding="16dp"
-    tools:context=".AniadirRegistros">
+    android:fillViewport="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:paddingBottom="32dp">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCabecera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Nuevo Registro de Ave"
-            android:textColor="@color/verde_oscuro"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:background="@color/verde_oscuro"
+            android:padding="16dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
+            <TextView
+                android:id="@+id/btnAtras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&lt; Atrás"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Nueva Ave"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/btnGuardar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Guardar"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/llBuscador"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/clCabecera">
+
+            <EditText
+                android:id="@+id/etBuscarAPI"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext_bosque"
+                android:hint="Buscar especie..."
+                android:paddingHorizontal="16dp" />
+
+            <Button
+                android:id="@+id/btnAutocompletar"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/verde_musgo"
+                android:text="AUTOCOMPLETAR"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardObligatorio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="4dp">
+            app:cardElevation="4dp"
+            app:layout_constraintTop_toBottomOf="@id/llBuscador">
 
-            <ImageView
-                android:id="@+id/ivPrevisualizacion"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#E0E0E0"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_image_placeholder" /> </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btnSeleccionarImagen"
+                <ImageView
+                    android:id="@+id/ivPortada"
+                    android:layout_width="120dp"
+                    android:layout_height="160dp"
+                    android:background="#E0E0E0"
+                    android:scaleType="centerCrop"
+                    android:src="@android:drawable/ic_menu_camera"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/etNombre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:hint="Nombre Comun *"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivPortada"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/etNombreCientifico"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="Nombre Cientifico *"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivPortada"
+                    app:layout_constraintTop_toBottomOf="@id/etNombre" />
+
+                <EditText
+                    android:id="@+id/etDescCorta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Descripcion Corta *"
+                    app:layout_constraintTop_toBottomOf="@id/ivPortada" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardFisico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/verde_musgo"
-            android:text="Seleccionar Imagen de Portada"
-            android:textColor="@color/white" />
+            android:layout_margin="16dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintTop_toBottomOf="@id/cardObligatorio">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="Nombre Común"
-            app:boxStrokeColor="@color/verde_oscuro"
-            app:hintTextColor="@color/verde_oscuro">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNombre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="Nombre Científico"
-            app:boxStrokeColor="@color/verde_oscuro"
-            app:hintTextColor="@color/verde_oscuro">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNombreCientifico"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-italic"
-                android:inputType="textCapWords" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:hint="Descripción"
-            app:boxStrokeColor="@color/verde_oscuro"
-            app:hintTextColor="@color/verde_oscuro">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etDescripcion"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:lines="5"
-                android:minLines="3" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        <Button
-            android:id="@+id/btnGuardarRegistro"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DETALLES FISICOS"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/verde_oscuro"/>
+
+                <EditText
+                    android:id="@+id/etDescLarga"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Descripcion completa..."
+                    android:gravity="top"
+                    android:lines="3"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/etEnvergadura"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Envergadura (cm)"
+                        android:inputType="numberDecimal"/>
+                    <EditText
+                        android:id="@+id/etColores"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Colores"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="¿Dismorfia Sexual?"/>
+
+                <RadioGroup
+                    android:id="@+id/rgDismorfia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton android:id="@+id/rbDismorfiaNo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="NO" android:checked="true"/>
+                    <RadioButton android:id="@+id/rbDismorfiaSi" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SI"/>
+                </RadioGroup>
+
+                <LinearLayout
+                    android:id="@+id/llFotosDismorfia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+                    <Button
+                        android:id="@+id/btnFotoMacho"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="FOTOS MACHO"
+                        android:textSize="10sp"/>
+                    <Button
+                        android:id="@+id/btnFotoHembra"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:text="FOTOS HEMBRA"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardComportamiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/marron_tierra"
-            android:paddingVertical="12dp"
-            android:text="Guardar Ave"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_margin="16dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintTop_toBottomOf="@id/cardFisico">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="COMPORTAMIENTO"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/verde_oscuro"/>
+
+                <EditText
+                    android:id="@+id/etAlimentacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="¿Cómo se alimentan?"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="¿Migratorio?"/>
+
+                <RadioGroup
+                    android:id="@+id/rgMigratorio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton android:id="@+id/rbMigratorioNo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="NO" android:checked="true"/>
+                    <RadioButton android:id="@+id/rbMigratorioSi" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SI"/>
+                </RadioGroup>
+
+                <LinearLayout
+                    android:id="@+id/llSeccionMigracion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="4"
+                        android:alignmentMode="alignMargins">
+                        <CheckBox android:text="Ene"/><CheckBox android:text="Feb"/><CheckBox android:text="Mar"/><CheckBox android:text="Abr"/>
+                        <CheckBox android:text="May"/><CheckBox android:text="Jun"/><CheckBox android:text="Jul"/><CheckBox android:text="Ago"/>
+                        <CheckBox android:text="Sep"/><CheckBox android:text="Oct"/><CheckBox android:text="Nov"/><CheckBox android:text="Dic"/>
+                    </GridLayout>
+
+                    <ImageView
+                        android:id="@+id/ivMapaPlaceholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#D1D1D1"
+                        android:scaleType="center"
+                        android:src="@android:drawable/ic_dialog_map" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnSubirAudio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="SUBIR AUDIO CANTO"
+                    app:icon="@android:drawable/ic_btn_speak_now" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
+            android:layout_margin="16dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintTop_toBottomOf="@id/cardComportamiento">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <EditText
+                    android:id="@+id/etEtiquetas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Etiquetas (separadas por comas)"/>
+                <TextView
+                    android:id="@+id/tvAutorAuto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="12dp"
+                    android:background="#F0F0F0"
+                    android:text="Autor: (Cargando...)"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
