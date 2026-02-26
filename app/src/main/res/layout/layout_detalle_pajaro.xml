@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/fondo_naturaleza"
+            android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/ivDetalleFoto"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background"
+                android:background="@color/verde_musgo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+                android:id="@+id/btnVolverAtras"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_boton_redondo_oscuro"
+                android:src="@android:drawable/ic_menu_revert"
+                app:tint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-30dp"
+                app:cardCornerRadius="32dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@id/ivDetalleFoto">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="32dp"
+                    android:background="@color/white">
+
+                <TextView
+                        android:id="@+id/tvDetalleNombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:text="Nombre del Pajaro"
+                        android:textColor="@color/verde_oscuro"
+                        android:textSize="32sp" />
+
+                <View
+                        android:layout_width="60dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@color/verde_musgo" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:text="Descripcion del avistamiento"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.1"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/marron_tierra"
+                        android:textSize="12sp" />
+
+                <TextView
+                        android:id="@+id/tvDetalleDescripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:lineSpacingExtra="6dp"
+                        android:text="Aqui es donde contaras toda la historia de como viste a este bicho..."
+                        android:fontFamily="sans-serif"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="17sp" />
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

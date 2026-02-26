@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_naturaleza"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Configuración"
+        android:textColor="@color/verde_oscuro"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Idioma de la aplicación"
+        android:textColor="@color/marron_tierra"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/rgIdioma"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp">
+
+        <RadioButton
+            android:id="@+id/rbEspanol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Español (ES)"
+            android:textColor="@color/texto_secundario" />
+
+        <RadioButton
+            android:id="@+id/rbIngles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English (EN)"
+            android:textColor="@color/texto_secundario" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tema visual"
+        android:textColor="@color/marron_tierra"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/rgTema"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <RadioButton
+            android:id="@+id/rbTemaClaro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modo Día (Naturaleza)"
+            android:textColor="@color/texto_secundario" />
+
+        <RadioButton
+            android:id="@+id/rbTemaOscuro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modo Noche (Bosque Oscuro)"
+            android:textColor="@color/texto_secundario" />
+    </RadioGroup>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btnGuardarConfiguracion"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/bg_rounded_button"
+        android:text="Guardar Configuración"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+</LinearLayout>

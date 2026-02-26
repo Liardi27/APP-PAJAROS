@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+    <VideoView
+            android:id="@+id/vvw_FondoPajaro"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+            android:id="@+id/vw_CapaOscura"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#66000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/txvw_TituloApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:shadowColor="#80000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:text="WatchBird"
+            android:textColor="@color/white"
+            android:textSize="56sp"
+            app:layout_constraintBottom_toTopOf="@+id/txvw_SubtituloApp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.35"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+            android:id="@+id/txvw_SubtituloApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Conecta con la naturaleza"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_IrInicioSesion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvw_TituloApp" />
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_IrInicioSesion"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginBottom="16dp"
+            android:text="Iniciar Sesion"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:backgroundTint="@color/verde_oscuro"
+            app:cornerRadius="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_IrRegistro"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.85" />
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_IrRegistro"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginBottom="48dp"
+            android:text="Crear una cuenta"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:cornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.85"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

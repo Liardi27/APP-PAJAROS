@@ -1,0 +1,11 @@
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="fondo_naturaleza">#F2EFE9</color>
+    <color name="verde_musgo">#A3B18A</color>
+    <color name="marron_tierra">#582F0E</color>
+    <color name="verde_oscuro">#344E41</color>
+    <color name="texto_secundario">#6D7563</color>
+
+</resources>

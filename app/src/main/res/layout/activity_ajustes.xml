@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_naturaleza"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvTituloAjustes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Editar mis datos"
+            android:textColor="@color/verde_oscuro"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lblNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Nombre"
+            android:textColor="@color/marron_tierra"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTituloAjustes" />
+
+        <EditText
+            android:id="@+id/etEditNombre"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_rounded_button"
+            android:backgroundTint="@color/white"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/lblNombre" />
+
+        <TextView
+            android:id="@+id/lblApellidos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Apellidos"
+            android:textColor="@color/marron_tierra"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etEditNombre" />
+
+        <EditText
+            android:id="@+id/etEditApellidos"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_rounded_button"
+            android:backgroundTint="@color/white"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/lblApellidos" />
+
+        <TextView
+            android:id="@+id/lblUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Nombre de usuario"
+            android:textColor="@color/marron_tierra"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etEditApellidos" />
+
+        <EditText
+            android:id="@+id/etEditUsername"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_rounded_button"
+            android:backgroundTint="@color/white"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/lblUsername" />
+
+        <Button
+            android:id="@+id/btnGuardarAjustes"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/bg_rounded_button"
+            android:text="Guardar Cambios"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/etEditUsername" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

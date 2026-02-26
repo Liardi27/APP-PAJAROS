@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/fondo_naturaleza"
+            android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pantalla_recuperar_raiz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="32dp">
+
+        <TextView
+                android:id="@+id/txvw_TituloRecuperar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Recuperar Nido"
+                android:textColor="@color/verde_oscuro"
+                android:textSize="34sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/txvw_SubtituloRecuperar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif"
+                android:text="Introduce tu correo electronico o tu nombre de usuario para que podamos enviarte un enlace de recuperacion."
+                android:textColor="@color/verde_musgo"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvw_TituloRecuperar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_DatoRecuperacion"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:hint="Escribe tu Correo o Username aqui"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="@color/verde_oscuro"
+                app:hintTextColor="@color/verde_musgo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvw_SubtituloRecuperar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_DatoRecuperacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:inputType="text"
+                    android:textColor="@color/verde_oscuro" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_EnviarRecuperacion"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:elevation="0dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Enviar rescate"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                app:backgroundTint="@color/verde_oscuro"
+                app:cornerRadius="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_DatoRecuperacion" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
