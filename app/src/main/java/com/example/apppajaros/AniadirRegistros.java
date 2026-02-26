@@ -3,48 +3,42 @@ package com.example.apppajaros;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.GridLayout;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 public class AniadirRegistros extends AppCompatActivity {
 
-    // declaro mis variables para conectar con el xml
-    private EditText etNombre, etNombreCientifico, etDescCorta, etDescLarga, etEnvergadura, etColores, etAlimentacion, etEtiquetas;
-    private RadioGroup rgDismorfia, rgMigratorio;
+    private EditText etBuscarAPI, etNombre, etNombreCientifico, etDescCorta, etDescLarga, etEnvergadura, etColores, etAlimentacion, etEtiquetas;
+    private SwitchCompat swDismorfia, swMigratorio;
     private LinearLayout llFotosDismorfia, llSeccionMigracion;
-    private TextView tvAutorAuto, btnGuardar;
-    private Button btnAutocompletar;
-
-    // aqui guardare los meses seleccionados en el futuro
-    private GridLayout gridMeses;
+    private ImageButton btnSubirPortada;
+    private TextView btnAtras, btnGuardar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aniadir_registro);
 
-        // inicio el buscador de piezas
         vincularComponentes();
 
-        // pongo el autor de forma automatica para que haga bulto en el diseño
-        if (tvAutorAuto != null) {
-            tvAutorAuto.setText("Autor: UsuarioActual");
-        }
+        // ARREGLO: Boton atras ya funciona cerrando la actividad
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-        // configuro la logica visual
-        configurarEventosDinamicos();
+        configurarInterruptores();
     }
 
     private void vincularComponentes() {
-        // busco cada elemento por su id del xml
+        etBuscarAPI = findViewById(R.id.etBuscarAPI);
         etNombre = findViewById(R.id.etNombre);
         etNombreCientifico = findViewById(R.id.etNombreCientifico);
         etDescCorta = findViewById(R.id.etDescCorta);
@@ -52,79 +46,50 @@ public class AniadirRegistros extends AppCompatActivity {
         etEnvergadura = findViewById(R.id.etEnvergadura);
         etColores = findViewById(R.id.etColores);
         etAlimentacion = findViewById(R.id.etAlimentacion);
-        etEtiquetas = findViewById(R.id.etEtiquetas);
 
-        rgDismorfia = findViewById(R.id.rgDismorfia);
-        rgMigratorio = findViewById(R.id.rgMigratorio);
+        swDismorfia = findViewById(R.id.swDismorfia);
+        swMigratorio = findViewById(R.id.swMigratorio);
 
         llFotosDismorfia = findViewById(R.id.llFotosDismorfia);
         llSeccionMigracion = findViewById(R.id.llSeccionMigracion);
 
-        tvAutorAuto = findViewById(R.id.tvAutorAuto);
+        btnSubirPortada = findViewById(R.id.btnSubirPortada);
+        btnAtras = findViewById(R.id.btnAtras);
         btnGuardar = findViewById(R.id.btnGuardar);
-        btnAutocompletar = findViewById(R.id.btnAutocompletar);
     }
 
-    private void configurarEventosDinamicos() {
-        // gestiono el cambio de visibilidad de la dismorfia sexual
-        if (rgDismorfia != null) {
-            rgDismorfia.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    if (checkedId == R.id.rbDismorfiaSi) {
-                        llFotosDismorfia.setVisibility(View.VISIBLE);
-                    }
-                    if (checkedId == R.id.rbDismorfiaNo) {
-                        llFotosDismorfia.setVisibility(View.GONE);
-                    }
+    private void configurarInterruptores() {
+        // Empiezan desactivados y con texto NO
+        swDismorfia.setChecked(false);
+        swDismorfia.setText("NO");
+        swDismorfia.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    swDismorfia.setText("SI");
+                    llFotosDismorfia.setVisibility(View.VISIBLE);
                 }
-            });
-        }
-
-        // gestiono si aparecen los campos de migracion o no
-        if (rgMigratorio != null) {
-            rgMigratorio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    if (checkedId == R.id.rbMigratorioSi) {
-                        llSeccionMigracion.setVisibility(View.VISIBLE);
-                    }
-                    if (checkedId == R.id.rbMigratorioNo) {
-                        llSeccionMigracion.setVisibility(View.GONE);
-                    }
+                if (!isChecked) {
+                    swDismorfia.setText("NO");
+                    llFotosDismorfia.setVisibility(View.GONE);
                 }
-            });
-        }
+            }
+        });
 
-        // ejecuto la simulacion usando mi logica de condiciones
-        if (btnGuardar != null) {
-            btnGuardar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    simularGuardadoVisual();
+        swMigratorio.setChecked(false);
+        swMigratorio.setText("NO");
+        swMigratorio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    swMigratorio.setText("SI");
+                    llSeccionMigracion.setVisibility(View.VISIBLE);
                 }
-            });
-        }
-    }
-
-    private void simularGuardadoVisual() {
-        // extraigo los textos para comprobar que la interfaz responde
-        String nombre = etNombre.getText().toString().trim();
-        String cientifico = etNombreCientifico.getText().toString().trim();
-        String descCorta = etDescCorta.getText().toString().trim();
-
-        // empiezo mis validaciones esteticas
-        if (nombre.isEmpty() || cientifico.isEmpty() || descCorta.isEmpty()) {
-            // si le falta algo basico, le doy un toque de atencion
-            Toast.makeText(this, "Rellena los campos obligatorios antes de seguir", Toast.LENGTH_SHORT).show();
-        }
-
-        if (!nombre.isEmpty() && !cientifico.isEmpty() && !descCorta.isEmpty()) {
-            // si todo cuadra, hago el paripe de que estoy guardando
-            Toast.makeText(this, "Simulando guardado de la especie: " + nombre, Toast.LENGTH_LONG).show();
-
-            // el dia de mañana aqui metere la logica de firestore
-            // por ahora me conformo con ver el toast
-        }
+                if (!isChecked) {
+                    swMigratorio.setText("NO");
+                    llSeccionMigracion.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 }

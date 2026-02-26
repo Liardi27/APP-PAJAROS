@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -63,4 +64,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 // Gson para convertir el JSON en objetos de Java
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.activity:activity:1.8.0")
+    implementation("androidx.fragment:fragment:1.6.2")
 }

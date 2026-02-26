@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_naturaleza"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="32dp">
+
+        <View
+            android:id="@+id/fondoCabecera"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:background="@color/verde_oscuro"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnVolverAtrasEditar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="12dp"
+            android:src="@android:drawable/ic_menu_revert"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Editar Perfil"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@id/btnVolverAtrasEditar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnVolverAtrasEditar" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvFotoEditable"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="80dp"
+            app:cardCornerRadius="60dp"
+            app:cardElevation="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgEditarFotoPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="@color/verde_musgo"
+                    android:src="@android:drawable/ic_menu_camera" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_gravity="bottom"
+                    android:background="#66000000" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="6dp"
+                    android:src="@android:drawable/ic_menu_edit"
+                    app:tint="@color/white" />
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="#E6FFFFFF"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toBottomOf="@id/cvFotoEditable">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Nombre"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/etEditarNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/verde_musgo"
+                    android:gravity="center_horizontal"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/marron_tierra" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Apellidos"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/etEditarApellidos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/verde_musgo"
+                    android:gravity="center_horizontal"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/marron_tierra" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Nombre de Usuario"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/etEditarUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:backgroundTint="@color/verde_musgo"
+                    android:gravity="center_horizontal"
+                    android:inputType="textNoSuggestions"
+                    android:textColor="@color/marron_tierra" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGuardarEditar"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="Guardar Cambios"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    app:backgroundTint="@color/verde_oscuro"
+                    app:cornerRadius="12dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="24dp"
+                    android:background="#336D7563" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:text="Datos de la Cuenta"
+                    android:textStyle="bold"
+                    android:textColor="@color/marron_tierra"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnExportarDatos"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:text="Exportar"
+                        android:textColor="@color/marron_tierra"
+                        app:strokeColor="@color/marron_tierra" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnImportarDatos"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="Importar"
+                        android:textColor="@color/marron_tierra"
+                        app:strokeColor="@color/marron_tierra" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

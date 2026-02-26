@@ -2,8 +2,10 @@ package com.example.apppajaros;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +25,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Perfil extends AppCompatActivity {
 
+    // declaro mis piezas del tablero
     private TextView tvNombreCompleto, tvUsername, tvCerrarSesion;
     private TextView tvContadorPajaros, tvContadorFotos, tvContadorArticulos;
     private Button btnMiGaleria, btnMisArticulos;
-    private ImageView btnEditarDatos, btnVolverAtras; // aqui meto la flechita
+    private ImageView btnEditarDatos, btnVolverAtras, imgFotoPerfil;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -36,10 +39,11 @@ public class Perfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
+        // arranco firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // enlazo las piezas
+        // enlazo la vista con mi codigo
         tvNombreCompleto = findViewById(R.id.tvNombreCompleto);
         tvUsername = findViewById(R.id.tvUsername);
         tvCerrarSesion = findViewById(R.id.tvCerrarSesion);
@@ -49,53 +53,69 @@ public class Perfil extends AppCompatActivity {
         btnEditarDatos = findViewById(R.id.btnEditarDatos);
         btnMiGaleria = findViewById(R.id.btnMiGaleria);
         btnMisArticulos = findViewById(R.id.btnMisArticulos);
-
-        // busco mi flecha
         btnVolverAtras = findViewById(R.id.btnVolverAtras);
+        imgFotoPerfil = findViewById(R.id.imgFotoPerfil);
 
+        // cargo los datos por primera vez
         cargarDatosUsuario();
 
-        // el click de volver atras
+        // configuro mis botones con la logica de Don Viejo
+        configurarBotones();
+    }
+
+    // este metodo es clave: se lanza cuando vuelvo de Editar Perfil
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // refresco los datos por si he cambiado algo en la otra pantalla
+        cargarDatosUsuario();
+    }
+
+    private void configurarBotones() {
+        // flecha para volver a la pantalla anterior
         if (btnVolverAtras != null) {
             btnVolverAtras.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // cierro esta pantalla y vuelvo de donde venia
                     finish();
                 }
             });
         }
 
+        // boton para ir a editar el nido
         if (btnEditarDatos != null) {
             btnEditarDatos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intencion = new Intent(Perfil.this, AjustesActivity.class);
+                    Intent intencion = new Intent(Perfil.this, EditarPerfil.class);
                     startActivity(intencion);
                 }
             });
         }
 
-//        if (btnMiGaleria != null) {
-//            btnMiGaleria.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intencion = new Intent(Perfil.this, GaleriaActivity.class);
-//                    startActivity(intencion);
-//                }
-//            });
-//        }
-//
-//        if (btnMisArticulos != null) {
-//            btnMisArticulos.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intencion = new Intent(Perfil.this, ArticulosActivity.class);
-//                    startActivity(intencion);
-//                }
-//            });
-//        }
+        // mi galeria personal
+        if (btnMiGaleria != null) {
+            btnMiGaleria.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intencion = new Intent(Perfil.this, GaleriaActivity.class);
+                    startActivity(intencion);
+                }
+            });
+        }
 
+        // mis articulos escritos
+        if (btnMisArticulos != null) {
+            btnMisArticulos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intencion = new Intent(Perfil.this, ArticulosActivity.class);
+                    startActivity(intencion);
+                }
+            });
+        }
+
+        // el adios definitivo
         if (tvCerrarSesion != null) {
             tvCerrarSesion.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,44 +129,52 @@ public class Perfil extends AppCompatActivity {
     private void cargarDatosUsuario() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        // solo trabajo si hay alguien logueado
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            DocumentReference docRef = db.collection("Usuarios").document(userId);
 
+            // 1. CARGA LOCAL RAPIDA: miro si tengo la foto en el movil
+            SharedPreferences prefs = getSharedPreferences("AjustesPajaros", MODE_PRIVATE);
+            String fotoLocalStr = prefs.getString("ruta_foto_perfil", "");
+
+            if (!fotoLocalStr.isEmpty()) {
+                Uri uriLocal = Uri.parse(fotoLocalStr);
+                if (imgFotoPerfil != null) {
+                    // la pongo directamente para que el usuario no espere
+                    imgFotoPerfil.setImageURI(uriLocal);
+                }
+            }
+
+            // 2. CARGA DE FIRESTORE: traigo los textos actualizados
+            DocumentReference docRef = db.collection("Usuarios").document(userId);
             docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     if (documentSnapshot.exists()) {
-
                         String nombre = documentSnapshot.getString("nombre");
-                        // nota de viejo: apellidos no lo guardamos en el registro, pero lo dejo por si lo añades luego
                         String apellidos = documentSnapshot.getString("apellidos");
                         String username = documentSnapshot.getString("username");
 
                         if (tvNombreCompleto != null) {
-                            if (nombre != null) {
-                                // si no hay apellidos, pongo solo el nombre
-                                tvNombreCompleto.setText(apellidos != null ? nombre + " " + apellidos : nombre);
-                            }
+                            // compruebo si hay apellidos para no dejar huecos feos
+                            tvNombreCompleto.setText(apellidos != null ? nombre + " " + apellidos : nombre);
                         }
 
                         if (tvUsername != null) {
-                            if (username != null) {
-                                tvUsername.setText("@" + username);
-                            }
+                            tvUsername.setText("@" + username);
                         }
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Perfil.this, "Error al cargar los datos del nido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Perfil.this, "Error al conectar con el nido", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
-            if (tvNombreCompleto != null && tvUsername != null) {
-                tvNombreCompleto.setText("Usuario no logueado");
-                tvUsername.setText("");
+            // si por algun motivo no hay usuario aviso
+            if (tvNombreCompleto != null) {
+                tvNombreCompleto.setText("Sin conexion");
             }
         }
     }
@@ -157,6 +185,7 @@ public class Perfil extends AppCompatActivity {
         builder.setView(view);
         AlertDialog dialog = builder.create();
 
+        // hago que el fondo sea transparente para que el diseño luzca
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
@@ -180,6 +209,7 @@ public class Perfil extends AppCompatActivity {
                     mAuth.signOut();
                     dialog.dismiss();
 
+                    // limpio el historial para que no pueda volver atras al perfil
                     Intent intent = new Intent(Perfil.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
